@@ -27,7 +27,7 @@ jobs:
               run: zip -r docker-react.zip . -x "node_modules/*" ".git/*" "docker-react.zip"
             
             - name: Deploy to Elastic Beanstalk
-              uses: einaregilsson/beanstalk-deploy@v20
+              uses: einaregilsson/beanstalk-deploy@v21
               with:
                   application_name: docker-react
                   environment_name: Docker-react-env

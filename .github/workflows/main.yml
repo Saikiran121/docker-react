@@ -1,1 +1,23 @@
+name: Docker React CI
 
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+            
+            - name: Build Docker Image
+              run: docker build -t saikiran8050/docker-react -f Dockerfile.dev .
+            
+            - name: run tests inside docker container
+              run: docker run saikiran8050/docker-react npm test -- --coverage

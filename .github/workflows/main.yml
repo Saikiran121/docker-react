@@ -20,4 +20,4 @@ jobs:
               run: docker build -t saikiran8050/docker-react -f Dockerfile.dev .
             
             - name: run tests inside docker container
-              run: docker run saikiran8050/docker-react npm test -- --coverage
+              run: docker run -e CI=true saikiran8050/docker-react npm run test -- --coverage

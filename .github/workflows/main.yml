@@ -16,15 +16,26 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v3
             
+            - name: setup node 
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '18'
+            
+            - name: Install dependencies
+              run: npm install
+            
+            - name: run tests
+              run: npm test -- --coverage
+            
+            - name: Create deployment ZIP
+              run: |
+               zip -r deploy.zip . -x "*.git*" "node_modules/*" "coverage/*"
+            
             - name: Build Docker Image
               run: docker build -t saikiran8050/docker-react -f Dockerfile.dev .
             
             - name: run tests inside docker container
               run: docker run -e CI=true saikiran8050/docker-react npm run test -- --coverage
-            
-            # Package the app for deployment (zip source for Elastic Beanstalk)
-            - name: Zip source bundle
-              run: zip -r docker-react.zip . -x "node_modules/*" ".git/*" "docker-react.zip"
             
             - name: Deploy to Elastic Beanstalk
               uses: einaregilsson/beanstalk-deploy@v21
@@ -37,3 +48,4 @@ jobs:
                   #bucket_key: docker-react.zip
                   aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
                   aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+                  deployment_package: deploy.zip

@@ -33,8 +33,8 @@ jobs:
                   environment_name: Docker-react-env
                   version_label: ${{ github.sha }}
                   region: ap-south-1
-                  bucket_name: elasticbeanstalk-ap-south-1-428578350734
-                  bucket_key: docker-react/docker-react.zip
+                  #bucket_name: elasticbeanstalk-ap-south-1-428578350734
+                  #bucket_key: docker-react/docker-react.zip
               env:
                   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
                   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
